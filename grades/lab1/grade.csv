@@ -1,0 +1,9 @@
+GITHUB USERNAME,Instructor Notes,run.sh,environment.yaml,lab1.tex/lab1.ipynb,clean.py,lab1.pdf,Anonymous,Page Limit,Has Code,Comments,Docstrings,Style,Hard-Coded Paths,No Errors,Collection Description (2pts),Quality (4pts),Detail (4pts),Relevance (2pts),Quality (4pts),Creativeness of Finding 1 (3pts),Quality of Figure #1,Creativeness of Finding #2 (3pts),Quality of Figure #2,Creativeness of Finding #3 (3pts),Quality of Figure #3,Relevance (3pts),Relevance (3pts),Readability (4pts),Three Realms,Model #1 (2pts),Model #2 (2pts),Explanation,Points,Percentage
+Ruiwen-github,"Data description: describes data types and features in depth but not the collection process.
+Data cleaning: Does not check validity of data values with those of columns based on same information.
+EDA/cleaning: plots should use human-readable feature names rather than things such as ""HA_verb"" or ""SFxBas""
+Finding 1: Correlation heatmap is a little simplistic without extra analysis.
+Finding 2: This finding seems fairly simple. The plot is hard to decipher, since the y-axis is labeled as ""Number of ciTBIs"" but actually corresponds to the frequency, since the blue bar is the # of non-ciTBIs. Barplot was not the correct choice for this, since we can hardly make out the proportion for GCS score of 14 vs. 15, which is much more frequent. Default matplotlib colors used.
+Finding 3: What do the x-axis ticks correspond to? Need to be using the descriptions of each injury mechanism rather than the encoded numbers.
+Stability check: Why 50%? Why only do this once instead of many times, in a bootstrap-like manner? Unsure of what this tells us about the robustness of our findings.
+Modeling: Only one model was used - decision tree.",0.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,1.0,1.0,1.0,2.5,4.0,2.0,3.0,1.5,2.5,1.0,1.0,2.0,1.0,2.5,2.0,4.0,0.0,2.0,0.0,1.0,37.0,61.67
