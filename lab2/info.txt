@@ -1,0 +1,2 @@
+Lab2 for Stat214
+You can find all the codes, report, and relatd files in this folder.
