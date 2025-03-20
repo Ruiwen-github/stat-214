@@ -1,0 +1,31 @@
+data:
+  patch_size: 9
+dataloader_train:
+  batch_size: 1028
+  num_workers: 4
+  shuffle: True
+dataloader_val:
+  batch_size: 1028
+  num_workers: 4
+  shuffle: False
+autoencoder:
+  n_input_channels: 8
+  embedding_size: 50
+optimizer:
+  lr: 0.001
+trainer:
+  max_epochs: 100
+  log_every_n_steps: 50
+checkpoint:
+  save_top_k: 1
+  monitor: 'val_loss'
+  mode: 'min'
+  filename: 'layer: 10, batch_size: 1028-{epoch:03d}'
+    # you should change "default" to something else
+    # for your experiments
+  dirpath: 'checkpoints'
+wandb:
+  project: 'lab2-autoencoder'
+  name: 'layer: 10, batch_size: 1028'
+    # you should change "default" to something else
+    # for your experiments
