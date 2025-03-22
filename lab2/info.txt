@@ -1,2 +1,4 @@
 Lab2 for Stat214
-You can find all the codes, report, and related files in this folder.
+
+You can find all the codes and report in this folder.
+The final trained autoencoder and its correpsonding configuration file can be found in the code folder.
