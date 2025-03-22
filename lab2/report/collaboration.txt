@@ -1,0 +1,21 @@
+We have all agreed on these attributions:
+
+Ruiwen Liu worked on:
+- Exploratory Data Analysis (EDA)
+- Transfer Learning
+- Compiled all code for submission
+
+Xi Cheng worked on:
+- Exploratory Data Analysis (EDA)
+- Feature Engineering 
+- Predictive Modeling 
+
+John Su worked on:
+- Exploratory Data Analysis (EDA)
+- Feature Engineering 
+- Predictive Modeling
+
+Xiyue Liang worked on:
+- Exploratory Data Analysis (EDA)
+- Transfer Learning
+- Compiled report for submission
