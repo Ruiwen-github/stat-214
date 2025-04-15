@@ -1,0 +1,21 @@
+Team Collaboration Summary
+All team members contributed to both Part 1 (embedding generation) and Part 2 (modeling and evaluation).
+
+Specific contributions are as follows:
+
+Ruiwen Liu:
+- Refined generated embeddings
+- Developed the Ridge regression model using bag-of-words (BoW) embeddings
+
+Xi Cheng:
+- Generated embeddings
+- Built the Ridge regression model using word2vec embeddings
+
+John Su:
+- Generated embeddings
+- Drafted the final project report
+
+Xiyue Liang:
+- Generated embeddings
+- Developed the Ridge regression model using GloVe embeddings
+- Evaluated model performance and assessed stability
