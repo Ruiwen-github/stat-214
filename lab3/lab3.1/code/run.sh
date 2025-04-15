@@ -9,4 +9,5 @@ jupyter nbconvert --to notebook --execute --inplace lab3.1_word2vec.ipynb
 jupyter nbconvert --to notebook --execute --inplace lab3.1_glove.ipynb
 jupyter nbconvert --to notebook --execute --inplace lab3.1_model_bow.ipynb
 jupyter nbconvert --to notebook --execute --inplace lab3.1_model_w2v.ipynb
+jupyter nbconvert --to notebook --execute --inplace lab3.1_model_glove.ipynb
 jupyter nbconvert --to latex lab3.1.ipynb
