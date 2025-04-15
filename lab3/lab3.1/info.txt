@@ -1,5 +1,5 @@
 Lab 3.1
-Team3 (Ruiwen Liu, Xiyue Liang, John Su, Xi Cheng)
+
 This directory contains all code and environment setup for Lab 3.1.
 
 Instructions: Before running the model code, please execute the three preprocessing .ipynb notebooks to generate the necessary embeddings.
