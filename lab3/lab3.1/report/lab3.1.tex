@@ -708,10 +708,10 @@ where \(D\) is the original embedding dimension (1,532 for BoW).
 
 To improve upon the sparse and context-agnostic nature of BoW, we
 incorporated \textbf{Word2Vec embeddings} pretrained on the Google News
-corpus. These 300-dimensional vectors were downloaded using Gensim's
-\texttt{word2vec-google-news-300} loader. For each word in the story, we
-retrieved its corresponding Word2Vec vector, or substituted a zero
-vector for out-of-vocabulary (OOV) terms.
+corpus. These 300-dimensional vectors for 3 million words were
+downloaded using Gensim's \texttt{word2vec-google-news-300} loader. For
+each word in the story, we retrieved its corresponding Word2Vec vector,
+or substituted a zero vector for out-of-vocabulary (OOV) terms.
 
 Word2Vec aims to capture semantic similarity by maximizing the
 likelihood of nearby words. Specifically, it learns embeddings by
@@ -803,7 +803,7 @@ Final Dim} & \textbf{Computational Cost} \\
 \endhead
 Bag-of-Words & 10,163 & Very Sparse & None (word counts only) & None &
 40,652 & Low \\
-Word2Vec & 100 & Dense & Local Context Window & High & 400 & High
+Word2Vec & 300 & Dense & Local Context Window & High & 1200 & High
 (pretrained) \\
 GloVe & 100 & Dense & Global Co-occurrence & High & 400 & Medium
 (pretrained) \\
@@ -856,7 +856,7 @@ For \textbf{Subject 2}, using a fixed alpha of 0.5:
 \item
   \textbf{Mean CC}: 0.0019 (initial ridge\_corr run)
 \item
-  \textbf{Mean CC (bootstrap\_ridge)}: 0.0032
+  \textbf{Mean CC}: 0.0032 (bootstrap\_ridge)
 \item
   \textbf{Median CC}: 0.0032
 \item
@@ -871,7 +871,7 @@ For \textbf{Subject 3}, using the same alpha:
 \item
   \textbf{Mean CC}: 0.0012 (initial ridge\_corr run)
 \item
-  \textbf{Mean CC}: 0.0045
+  \textbf{Mean CC}: 0.0045 (bootstrap\_ridge)
 \item
   \textbf{Median CC}: 0.0036
 \item
@@ -936,40 +936,130 @@ estimated from bootstrap ridge regression.
 \caption{Glove CC Distribution for Subject 3}
 \end{figure}
 
-These results show a clear improvement over BoW, reflecting GloVe's
-semantic compactness and reduced dimensionality.
+GloVe embeddings consistently outperformed BoW, particularly for Subject
+3, suggesting a tighter alignment between GloVe's co-occurrence
+structure and semantic brain activity.
 
 \hypertarget{word2vec-model-results}{%
 \subsubsection{4.4 Word2Vec Model
 Results}\label{word2vec-model-results}}
 
+We next evaluated the \textbf{Word2Vec embeddings}, using a
+1200-dimensional pretrained vector for each word, followed by
+downsampling, trimming, and delaying. We trained models using
+\textbf{voxel-specific alpha values} estimated from bootstrap ridge
+regression.
+
+\textbf{Subject 2 (GloVe + bootstrap\_ridge + valphas):}
+
+\begin{itemize}
+\item
+  \textbf{Mean CC}: 0.0050 (initial ridge\_corr run)
+\item
+  \textbf{Mean CC}: 0.0107 (bootstrap\_ridge)
+\item
+  \textbf{Median CC}: 0.0074
+\item
+  \textbf{Top 1\% CC}: 0.0733
+\item
+  \textbf{Top 5\% CC}: 0.0483
+\end{itemize}
+
+\textbf{Subject 3 (GloVe + bootstrap\_ridge + valphas):}
+
+\begin{itemize}
+\item
+  \textbf{Mean CC}: 0.0065 (initial ridge\_corr run)
+\item
+  \textbf{Mean CC}: 0.0153 (bootstrap\_ridge)
+\item
+  \textbf{Median CC}: 0.0115
+\item
+  \textbf{Top 1\% CC}: 0.0861
+\item
+  \textbf{Top 5\% CC}: 0.05569
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{cc_w2v.png}
+\caption{Word2Vec CC Distribution for Subject 2 and 3}
+\end{figure}
+
+The results indicate that Word2Vec captures local semantic relationships
+well, and Subject 3 again shows stronger overall encoding fidelity.
+
 \hypertarget{detailed-cc-distribution-analysis}{%
 \subsubsection{4.5 Detailed CC Distribution
 Analysis}\label{detailed-cc-distribution-analysis}}
 
-To better understand model behavior across voxels, we examined the full
-distribution of CCs. We found that:
+To examine voxel-level performance in more detail:
 
 \begin{itemize}
 \item
-  The distribution is unimodal and slightly right-skewed, with most
-  voxels near zero.
+  The \textbf{distribution of CCs was unimodal} and centered near zero,
+  reflecting low predictability for most voxels.
 \item
-  A small subset of voxels show moderate CCs, suggesting localized
-  regions that respond reliably to semantic features.
+  A \textbf{rightward skew} highlights a small number of voxels with
+  moderate-to-strong CCs.
 \item
-  \textbf{Subject 3 consistently shows better model fit across all
-  voxels} compared to Subject 2.
+  \textbf{Subject 3 consistently demonstrated stronger correlations}
+  than Subject 2 across all embeddings.
 \end{itemize}
 
-These patterns suggest that GloVe features generalize well and may
-better reflect the semantic structure encoded in cortical regions.
+These findings support the idea that language-responsive brain regions
+are spatially sparse and encode abstract semantic content.
 
 \hypertarget{stability-analysis}{%
 \subsubsection{4.6 Stability Analysis}\label{stability-analysis}}
 
-We conducted a \textbf{stability analysis} by re-evaluating performance
-on random subsets of voxels using the pretrained valphas.
+To assess the robustness of our ridge regression model and determine
+whether performance varies across different subsets of voxels, we
+conducted a \textbf{stability analysis} by re-evaluating performance on
+random subsets of voxels using the pretrained valphas. These alphas were
+estimated via bootstrap ridge regression on the full set of training
+data for each subject (subject2 and subject3). Our objective was to test
+whether the predictive performance---measured by the correlation
+coefficient (CC) between predicted and actual brain responses---remains
+consistent when evaluating only a randomly selected subset of voxels, as
+opposed to using the entire voxel set. This approach helps validate that
+the model's predictive quality is not overly reliant on a specific group
+of voxels and ensures that our findings are generalizable across the
+cortex.
+
+We evaluated stability by randomly selecting subsets of 1,000, 10,000,
+and 20,000 voxels from the full response matrix. For each subset, we
+extracted the corresponding columns from the training and test response
+matrices (Y\_train, Y\_test) and from the alpha vector (valphas). Before
+applying the model, we removed voxels with near-zero variance in the
+training data, as these could cause numerical instability during
+z-scoring or prediction. The prediction performance was then computed
+using the ridge\_corr\_pred function, which efficiently applies ridge
+regression using voxel-specific alphas without explicitly calculating
+weights. The resulting correlation coefficients were visualized using
+histograms, and we reported the mean, median, and top percentile CCs for
+each case.
+
+For subject2, the results demonstrated reasonable stability across
+different subset sizes. Using 1,000 voxels, we observed a mean CC of
+0.0137 and a median CC of 0.0101, with the top 1\% of voxels reaching a
+CC of 0.0819. Increasing the subset to 10,000 voxels yielded a slightly
+lower mean (0.0129) and median (0.0104), and a top 1\% CC of 0.0688.
+With 20,000 voxels, we dropped two near-zero variance voxels, and the
+remaining subset yielded a mean CC of 0.0130, median of 0.0105, top 1\%
+of 0.0693, and top 5\% of 0.0463. These values are close in magnitude
+and distribution shape, suggesting that predictive quality is relatively
+stable, even as the subset size increases.
+
+Subject3 showed even more stable and higher overall predictive
+performance. Using 1,000 voxels, we achieved a mean CC of 0.0179 and a
+median CC of 0.0153, with the top 1\% reaching 0.0774. The performance
+remained consistent for the 10,000-voxel subset (mean: 0.0182, median:
+0.0153, top 1\%: 0.0794), and again for the 20,000-voxel subset (mean:
+0.0181, median: 0.0152, top 1\%: 0.0784). The distributions were nearly
+identical to those from the full voxel set, demonstrating that model
+performance is remarkably stable for subject3, even when using
+significantly fewer voxels.
 
 \textbf{Subject 2 Stability (GloVe):}
 
@@ -999,65 +1089,73 @@ Subset Size & Mean CC & Median CC & Top 1\% CC & Top 5\% CC \\
 
 \begin{figure}
 \centering
-\includegraphics{vox_glove4.png}
-\caption{1K Voxel Stability for Subject 3}
+\includegraphics{stability_kde_subject2.png}
+\caption{Stability KDE for Subject 2}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics{vox_glove5.png}
-\caption{10K Voxel Stability for Subject 3}
+\includegraphics{stability_kde_subject3.png}
+\caption{Stability KDE for Subject 3}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics{vox_glove6.png}
-\caption{20K Voxel Stability for Subject 3}
-\end{figure}
-
-These results confirm the robustness of the model's predictive ability,
-particularly for Subject 3. Even when reducing the number of voxels by
-90\%, the overall distribution and top percentile performance remain
-stable.
+Overall, these results confirm the robustness of the model's predictive
+ability, particularly for Subject 3. Even when reducing the number of
+voxels by 90\%, the overall distribution and top percentile performance
+remain stable. For subject2, there is slightly more variability,
+particularly in the top-performing voxels, though the overall shape of
+the correlation distribution is preserved. Importantly, even with only
+1,000 voxels, the model recovers similar levels of peak correlation,
+indicating that a relatively small subset of informative voxels can
+effectively capture the brain's response to linguistic stimuli. These
+results support the use of voxel-wise ridge regression models with
+preselected regularization, and validate their generalizability and
+interpretability across different regions of the brain.
 
 \hypertarget{interpretation-and-scientific-implications}{%
 \subsubsection{4.7 Interpretation and Scientific
 Implications}\label{interpretation-and-scientific-implications}}
 
-Our results show that GloVe embeddings outperform Bag-of-Words in
-predicting brain activity, consistent with the notion that semantic
-representations are more informative than word counts. Subject 3
-consistently achieved higher CCs, suggesting either a better
-signal-to-noise ratio in the data or greater alignment with the semantic
-features.
-
-The detailed voxel-wise distribution also implies that language-related
-processing is spatially localized: only a subset of voxels reliably
-encode linguistic information. By identifying these voxels, we can begin
-mapping the cortical regions most involved in semantic comprehension.
-
-A reasonable PCS-aligned interpretation criterion might be to define
-``active'' voxels as those within the top 1\% of CCs (i.e., CC
-\textgreater{} \textasciitilde0.07), which balances statistical
-reliability with biological plausibility.
+\begin{itemize}
+\item
+  \textbf{GloVe outperforms BoW} across all metrics, highlighting the
+  value of compact semantic features.
+\item
+  \textbf{Subject 3 consistently yields better predictions}, likely due
+  to either cleaner data or better voxel-level semantic alignment.
+\item
+  The \textbf{long right-tail in CC distributions} points to a sparse
+  set of highly semantic voxels---possibly in language-dominant regions.
+\item
+  A reasonable \textbf{PCS-aligned threshold} might define responsive
+  voxels as those with CC \textgreater{} 0.07 (top 1\%), capturing
+  meaningful language representation without overfitting.
+\item
+  These models can potentially be used for \textbf{mapping
+  language-sensitive regions} or decoding semantic content from BOLD
+  activity.
+\end{itemize}
 
 \hypertarget{summary}{%
 \subsubsection{4.8 Summary}\label{summary}}
 
 \begin{itemize}
-\tightlist
 \item
-  Ridge regression with GloVe embeddings yields substantially higher
-  prediction accuracy than Bag-of-Words.
+  Ridge regression was used to predict fMRI activity from each embedding
+  type.
 \item
-  Subject 3 shows consistently better model performance than Subject 2.
+  \textbf{GloVe and Word2Vec significantly outperform BoW},
+  demonstrating the power of pretrained semantics.
 \item
-  The model is stable across varying voxel subsets, especially in
-  GloVe-based analyses.
+  Subject 3 achieved \textbf{higher overall CCs and greater stability},
+  indicating more robust neural encoding.
 \item
-  Top-performing voxels exhibit strong semantic sensitivity, supporting
-  the use of encoding models to probe language representation in the
-  brain.
+  \textbf{Stability analyses} confirm that these models generalize well
+  across large voxel subsets.
+\item
+  Top voxels show promising alignment with semantic structure,
+  validating voxel-wise modeling as a method for probing linguistic
+  representation in the brain.
 \end{itemize}
 
     \hypertarget{bibliography}{%
