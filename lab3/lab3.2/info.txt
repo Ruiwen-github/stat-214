@@ -1,0 +1,16 @@
+Lab 3.2
+
+This directory contains all code and environment setup for Lab 3.2.
+
+Instructions: Before running the modeling code, please follow the workflow starting with lab3.2_part1.ipynb, which handles pre-training and embedding generation using the core functions implemented in the .py modules.
+
+All key functionalities are modularized into four Python files:
+
+data.py: Handles data loading and tokenization.
+encoder.py: Defines the encoder architecture.
+train_encoder.py: Implements masked language model training for the encoder.
+preprocessing.py: Includes routines for downsampling, trimming, and adding delay time to the input data.
+
+Once embeddings are generated, proceed to lab3.2_part2.ipynb, which contains the modeling and evaluation workflow.
+
+A run.sh script is also provided to reproduce all results end-to-end. Running this script will execute all necessary steps in the correct order.
