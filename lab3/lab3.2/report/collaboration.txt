@@ -1,0 +1,20 @@
+Team Collaboration Summary
+Ruiwen, Xi, and Xiyue contributed to Part 1 ( Pre-training) and John contributed to Part 2 (modeling and evaluation).
+
+Specific contributions are as follows:
+
+Ruiwen Liu:
+- Implemented encoder model in encoder.py and masked-language model training in train_encoder.py
+- Updated downsampling function
+
+Xi Cheng:
+- Updated encoder.py and train_encoder.py
+- Implemented hyper-parameters-tuning for the encoder model
+
+Xiyue Liang:
+- Implemented hyper-parameters-tuning for the encoder model
+- Revised final project report
+
+John Su:
+- Fitted a ridge model and predicted across voxels
+- Drafted the final project report

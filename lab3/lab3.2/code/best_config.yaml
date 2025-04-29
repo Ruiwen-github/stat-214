@@ -1,0 +1,22 @@
+data:
+  max_len: 32
+dataloader:
+  batch_size: 32
+  num_workers: 2
+  shuffle: true
+grid_search:
+  best_params:
+    hidden_size: 128
+    lr: 0.0005
+    num_heads: 2
+    num_layers: 4
+  best_val_loss: 6.558860445022583
+model:
+  hidden_size: 128
+  intermediate_size: 512
+  num_heads: 2
+  num_layers: 4
+optimizer:
+  lr: 0.0005
+trainer:
+  epochs: 30
