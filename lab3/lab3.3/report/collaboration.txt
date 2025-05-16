@@ -1,0 +1,21 @@
+Team Collaboration Summary
+
+Specific contributions are as follows:
+
+Ruiwen Liu:
+- Adapted and optimized the BERT fine-tuning scripts for Part 1 based on John’s baseline code
+- Integrated LoRA modules into the Part 1 pipeline following Xi’s implementation
+- Authored the final report for Part 1
+
+Xi Cheng:
+- Implemented parameter-efficient LoRA fine-tuning for Part 1
+- Built the SHAP-based interpretability pipeline for Part 2
+
+Xiyue Liang:
+- Developed both SHAP and LIME workflows for Part 2
+- Performed the detailed interpretation of model explanations
+- Authored the final report for Part 2
+
+John Su:
+- Established the pre-trained BERT + ridge baseline code for Part 1
+- Provided the foundational framework used for subsequent fine-tuning experiments
